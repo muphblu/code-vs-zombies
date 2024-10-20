@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 
 internal class Program
 {
@@ -11,7 +9,7 @@ internal class Program
                                            ? new FileInputProvider(inputPath)
                                            : new ConsoleInputProvider();
         var inputParser = new InputParser(inputProvider);
-        var solver = new SimpleSolver();
+        var solver = new SimulationSolver();
         while (true)
         {
             var turnInput = inputParser.ParseTurnInput();
