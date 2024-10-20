@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeVsZombies", "CodeVsZomb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeVsZombies.OneFileBuilder", "CodeVsZombies.OneFileBuilder\CodeVsZombies.OneFileBuilder.csproj", "{FD7957A2-9AFF-46E4-B272-27C8F303B939}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeVsZombies.Tests", "CodeVsZombies.Tests\CodeVsZombies.Tests.csproj", "{D5F0D307-B510-4F7A-BA90-F014FBBD9FE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{FD7957A2-9AFF-46E4-B272-27C8F303B939}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD7957A2-9AFF-46E4-B272-27C8F303B939}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD7957A2-9AFF-46E4-B272-27C8F303B939}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5F0D307-B510-4F7A-BA90-F014FBBD9FE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5F0D307-B510-4F7A-BA90-F014FBBD9FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5F0D307-B510-4F7A-BA90-F014FBBD9FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5F0D307-B510-4F7A-BA90-F014FBBD9FE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
