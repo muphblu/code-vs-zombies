@@ -3,7 +3,7 @@ using System.Linq;
 using System.Numerics;
 
 
-public class SimulationSolver:ISolver
+public class OneTargetSimulationSolver : ISolver
 {
     private readonly Simulator _simulator = new();
     private readonly PointsEvaluator _pointsEvaluator = new();
@@ -34,8 +34,6 @@ public class SimulationSolver:ISolver
                 maxScore = score;
                 winnerMove = possibleMove;
             }
-
-            // Console.Error.WriteLine($"{possibleMove} {score} ");
         }
         
         return winnerMove.IsHuman

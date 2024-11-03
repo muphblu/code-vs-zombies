@@ -9,7 +9,7 @@ internal class Program
                                            ? new FileInputProvider(inputPath)
                                            : new ConsoleInputProvider();
         var inputParser = new InputParser(inputProvider);
-        var solver = new SimulationSolver();
+        var solver = new StrandingSimulationSolver();
         while (true)
         {
             var turnInput = inputParser.ParseTurnInput();
