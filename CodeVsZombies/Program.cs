@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 
 internal class Program
 {
@@ -12,9 +13,13 @@ internal class Program
         var solver = new GeneticAlgoSolver();
         while (true)
         {
+            var tokenSource = new CancellationTokenSource(TimeSpan.FromMilliseconds(950));
+
             var turnInput = inputParser.ParseTurnInput();
-            var turnSolution = solver.SolveTurn(turnInput);
-            Console.WriteLine($"{Math.Ceiling(turnSolution.X)} {Math.Ceiling(turnSolution.Y)}");
+            var turnSolution = solver.SolveTurn(turnInput, tokenSource.Token);
+            Console.WriteLine(turnSolution == Constants.WaitVector2
+                                  ? "WAIT"
+                                  : $"{Math.Ceiling(turnSolution.X)} {Math.Ceiling(turnSolution.Y)}");
         }
     }
 }

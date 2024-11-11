@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Threading;
 
 public class SimpleSolver : ISolver
 {
     private List<int> _willBeEaten = new List<int>();
     
-    public Vector2 SolveTurn(TurnInput turnInput)
+    public Vector2 SolveTurn(TurnInput turnInput, CancellationToken cancellationToken)
     {
         _willBeEaten = turnInput.Humans.Select(x=>x.Id).Intersect(_willBeEaten).ToList();   
             var prioritizedZombies = 

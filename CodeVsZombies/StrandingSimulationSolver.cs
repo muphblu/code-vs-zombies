@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Numerics;
+using System.Threading;
 
 public class StrandingSimulationSolver : ISolver
 {
@@ -17,7 +18,7 @@ public class StrandingSimulationSolver : ISolver
         new(Constants.Width, Constants.Height),
     };
 
-    public Vector2 SolveTurn(TurnInput turnInput)
+    public Vector2 SolveTurn(TurnInput turnInput, CancellationToken cancellationToken)
     {
         const int turnsToSimulate = 6;
 

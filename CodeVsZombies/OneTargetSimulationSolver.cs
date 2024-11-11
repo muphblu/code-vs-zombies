@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Numerics;
+using System.Threading;
 
 
 public class OneTargetSimulationSolver : ISolver
 {
     private readonly Simulator _simulator = new();
     private readonly PointsEvaluator _pointsEvaluator = new();
-    public Vector2 SolveTurn(TurnInput turnInput)
+    public Vector2 SolveTurn(TurnInput turnInput, CancellationToken cancellationToken)
     {
         var possibleMoves = turnInput.Zombies.Select(z => (IsHuman: false, z.Id))
                                      .Concat(turnInput.Humans.Select(h => (IsHuman: true, h.Id)))

@@ -9,7 +9,7 @@ public class GeneticAlgoSolver: ISolver
     private readonly Random _random = new();
     private readonly int _populationSize = 100;
     private readonly int _solutionSize = 20;
-    private readonly int _generations = 20;
+    private readonly int _generations = 50;
     private const int BestCount = 2;
     private const int ParentsCount = 2;
     private const double MutationRate = 0.1;
@@ -17,23 +17,29 @@ public class GeneticAlgoSolver: ISolver
     private int _moveCounter;
 
 
-    public Vector2 SolveTurn(TurnInput turnInput)
+    public Vector2 SolveTurn(TurnInput turnInput, CancellationToken cancellationToken)
     {
         if (_bestSolution != null)
         {
             if (turnInput.PlayerPosition == _bestSolution[_moveCounter]) 
                 _moveCounter++;
-            
-            return _bestSolution[_moveCounter];
+
+
+            return _moveCounter < _bestSolution.Length
+                       ? _bestSolution[_moveCounter]
+                       : Constants.WaitVector2;
         }
 
-        var tokenSource = new CancellationTokenSource(TimeSpan.FromMilliseconds(800));
         
-        var population = InitialPopulation();
+        var population = InitialPopulation(turnInput);
+        var generationsCounter = _generations;
         for (var generation = 0; generation < _generations; generation++)
         {
-            if(tokenSource.IsCancellationRequested)
+            if (cancellationToken.IsCancellationRequested)
+            {
+                generationsCounter = generation;
                 break;
+            }
             
             var newPopulation = new List<Vector2[]>(_populationSize);
             newPopulation.AddRange(population.Take(BestCount));
@@ -58,13 +64,15 @@ public class GeneticAlgoSolver: ISolver
         }
 
         _bestSolution = GetBestSolution(population, turnInput);
-        
+        Console.Error.WriteLine($"Generations: {generationsCounter}");
         return _bestSolution[_moveCounter];
     }
 
     private Vector2[] GetBestSolution(Vector2[][] population, TurnInput turnInput)
     {
-        return population.OrderByDescending(x => EvaluateSolution(x, turnInput)).First();
+        return population.Select(x => (Solution: x, Score: EvaluateSolution(x, turnInput)))
+                         .OrderByDescending(x => x.Score)
+                         .First().Solution;
 
     }
 
@@ -94,12 +102,27 @@ public class GeneticAlgoSolver: ISolver
                          .ToArray();
     }
 
-    private Vector2[][] InitialPopulation()
+    private Vector2[][] InitialPopulation(TurnInput turnInput)
     {
+        var humansByDistance = turnInput.Humans
+                                        .Select(h => (Human: h.Position, Distance: Vector2.Distance(h.Position, turnInput.PlayerPosition)))
+                                        .OrderBy(x => x.Distance)
+                                        .ToArray();
+        
         var population = new Vector2[_populationSize][];
+
+        for (var i = 0; i < 2; i++)
+        {
+            var solution = new Vector2[_solutionSize];
+            for (var j = 0; j < _solutionSize; j++)
+            {
+                var index = (int) Math.Truncate(j % humansByDistance.Length * _random.NextSingle());
+                solution[j] = humansByDistance[index].Human;
+            }
+            population[i] = solution;
+        }
         
-        
-        for (var i = 0; i < _populationSize; i++)
+        for (var i = 2; i < _populationSize; i++)
         {
             var solution = new Vector2[_solutionSize];
             for (var j = 0; j < _solutionSize; j++)
