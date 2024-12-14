@@ -9,4 +9,6 @@ public static class Vector2Extensions
         var moveTowardsTarget = currentPosition + (target - currentPosition) * Math.Min(maxDistance / distanceToTarget, 1);
         return moveTowardsTarget with{ X = (float) Math.Truncate(moveTowardsTarget.X), Y = (float) Math.Truncate(moveTowardsTarget.Y)};
     }
+
+    public static Vector2 ReturnInbounds(this Vector2 position) => Vector2.Clamp(position, Vector2.Zero, Constants.MaxVector2);
 }

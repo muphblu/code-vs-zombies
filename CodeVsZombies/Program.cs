@@ -16,6 +16,7 @@ internal class Program
             var tokenSource = new CancellationTokenSource(TimeSpan.FromMilliseconds(950));
 
             var turnInput = inputParser.ParseTurnInput();
+            // Console.Error.WriteLine(turnInput.ToString());
             var turnSolution = solver.SolveTurn(turnInput, tokenSource.Token);
             Console.WriteLine(turnSolution == Constants.WaitVector2
                                   ? "WAIT"

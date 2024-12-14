@@ -48,4 +48,26 @@ public class Tests
         var expected = new Vector2(707, 707);
         Assert.AreEqual(expected, result);
     }
+    
+    [Test]
+    public void ReturnInbounds_Inbounds()
+    {
+        var position = new Vector2(1000, 1000);
+        
+        var result = position.ReturnInbounds();
+        
+        var expected = new Vector2(1000, 1000);
+        Assert.AreEqual(expected, result);
+    }
+    
+    [Test]
+    public void ReturnInbounds_OutOfBounds()
+    {
+        var position = new Vector2(20000, 10000);
+        
+        var result = position.ReturnInbounds();
+        
+        var expected = new Vector2(16000, 9000);
+        Assert.AreEqual(expected, result);
+    }
 }

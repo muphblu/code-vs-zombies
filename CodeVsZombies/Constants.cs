@@ -8,4 +8,6 @@ internal static class Constants
     public const int Width = 16000;
     public const int Height = 9000;
     public static readonly Vector2 WaitVector2 = new Vector2(-1, -1);
+    public static readonly Vector2 MaxVector2 = new Vector2(Width, Height);
+    
 }
